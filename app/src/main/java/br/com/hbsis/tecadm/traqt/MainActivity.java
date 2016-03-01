@@ -9,24 +9,32 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Timer;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        // Cria um botão de repetições
+        Button repetitionsButton = new Button(this);
+        repetitionsButton.setText("Repetições: 0");
+        repetitionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                // Obtém o botão que disparou o click
+                Button b = (Button) v;
+                currentRepetitions++;
+                b.setText("Repetições: " + currentRepetitions);
             }
         });
+        // Cria um Layout base e adiciona o botão
+        LinearLayout baseLayout = new LinearLayout(this);
+        baseLayout.addView(repetitionsButton);
+        setContentView(baseLayout);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
