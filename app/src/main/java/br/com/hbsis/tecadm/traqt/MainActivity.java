@@ -2,6 +2,8 @@ package br.com.hbsis.tecadm.traqt;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import java.util.concurrent.TimeUnit;
 import java.util.TimerTask;
@@ -13,7 +15,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import java.util.Timer;
 
-public class MainActivity extends AppCompatActivity {
+import br.com.hbsis.tecadm.traqt.model.SessionParameters;
+
+public class MainActivity extends AppCompatActivity implements SessionParameters{
+
+    //Campos
+    TextView elapsedTimeTextView;
+    EditText repetitionsLimitEditText;
+    EditText timeLimitEditText;
+    CheckBox vibrationCheckBox;
 
     // Armazena as repetições da sessão                                (1.1)
     private int currentRepetitions = 0;
@@ -42,6 +52,11 @@ public class MainActivity extends AppCompatActivity {
         // .setAction("Action", null).show();
         // }
         // });
+
+        // Cria um checkbox para determinar se deve ou não vibrar nas repetições
+        vibrationCheckBox = new CheckBox(this);
+        vibrationCheckBox.setText("Habilitar vibrações");
+
 
         // Cria um Label para o cronometro                             (2.2)
         final TextView elapsedTimeTextView = new TextView(this);
@@ -82,26 +97,6 @@ public class MainActivity extends AppCompatActivity {
         baseLayout.addView(resetButton);
         baseLayout.addView(elapsedTimeTextView);
 
-        /**
-         * Retorna a representação em String de uma duração representada em nanosegundos.
-         * @param nanosecs A duração em nano-segundos.
-         * @return Retorna a duração formatada como "mm:ss" onde: m - minutos e s -
-        segundos.
-         */
-        String formatDuration(long nanosecs) {
-
-            // Extrai as unidades do tempo transcorrido
-            long minutes = 0;
-            long seconds = TimeUnit.NANOSECONDS.toSeconds(nanosecs);
-            if (seconds > 60) {
-                minutes = seconds / 60;
-                seconds = seconds - (minutes * 60);
-            }
-            // Retorna a duração formatada
-            return ((minutes >= 10) ? "" : "0") + minutes + ":" +
-                    ((seconds >= 10) ? "" : "0") + seconds;
-        }
-
         // Verifica se existe um timer o que indica uma sessão ativa    (2.3)
         if (chronoTimer == null) {
             // Configura os dados sessão
@@ -132,8 +127,12 @@ public class MainActivity extends AppCompatActivity {
             chronoTimer.schedule(chronoTimerTask, 0, 1000);
         }
 
+        // Cria uma sessão inicial
+        configSession();
+
     }
 
+    // -- IMPLEMENTACAO DA INTERFACE
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
