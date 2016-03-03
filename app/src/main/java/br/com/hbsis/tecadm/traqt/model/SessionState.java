@@ -1,9 +1,9 @@
 package br.com.hbsis.tecadm.traqt.model;
 
 /**
- * Enumera os estados possíveis de uma Sessão do Traqt.
+ * Created by Lab01 on 01/03/2016.
  */
-public enum SessionState {
+public enum  SessionState {
     /**
      * Uma sessão recém criada que ainda não foi iniciada.
      */
