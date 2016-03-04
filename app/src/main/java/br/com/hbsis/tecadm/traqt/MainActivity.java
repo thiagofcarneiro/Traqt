@@ -25,7 +25,7 @@ import br.com.hbsis.tecadm.traqt.model.SessionTrack;
 import br.com.hbsis.tecadm.traqt.model.TraqtDbHelper;
 import br.com.hbsis.tecadm.traqt.model.entities.TraqtActivity;
 import br.com.hbsis.tecadm.traqt.utils.Duration;
-import br.com.hbsis.tecvendas.traqt.R;
+import br.com.hbsis.tecadm.traqt.R;
 
 public class MainActivity
         extends AppCompatActivity
